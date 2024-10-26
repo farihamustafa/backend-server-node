@@ -13,17 +13,46 @@ class userService{
 
     }
     async create(req,res){
+     try {
+        
+        const data = (({name, email,password})=>({name,email,password}))(req.body);
+         User.insertMany([data]);
+        // console.log(data)
+        res.status(200).json({message :"User created successfully"});
+     } catch (error) {
+        
+        res.status(400).json({message:error});
+     }
         
     }
     async update(req,res){
         
     }
     async delete(req,res){
-        
-    }
-    async details(req,res){
-        
-    }
+        try {
+            const id = req.params.id;
+             await User.findByIdAndDelete(id);
+            res.status(200).json({message:"user deleted successfully"});
+            
+           } catch (error) {
+            res.status(400).json({message: error})
+            
+           }
 
-}
+    }
+      
+    async details(req,res){
+
+        try {
+            const id = req.params.id;
+            const user = await User.findById(id);
+            res.status(200).json({message:"user find successfully", data:user});
+            
+           } catch (error) {
+            res.status(400).json({message: error})
+            
+           }
+            
+        }
+    }
 module.exports= new userService;
