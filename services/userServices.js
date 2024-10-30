@@ -26,6 +26,13 @@ class userService{
         
     }
     async update(req,res){
+        try {
+            const id = req.params.id;
+            const data = (({name, email, password})=>(name,ema))
+            
+        } catch (error) {
+            
+        }
         
     }
     async delete(req,res){
