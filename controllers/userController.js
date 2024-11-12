@@ -16,7 +16,7 @@ class userController {
         userService.delete(req,res)
 
     }
-    static details(req, res){
+    static detail(req, res){
         userService.details(req,res)
 
     }
