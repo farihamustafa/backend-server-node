@@ -1,6 +1,7 @@
 const express = require ('express');
 const app = express();
 const bodyParser = require ('body-parser');
+const cors = require('cors');
 const userRouter = require('./routes/userRoute');
 const dbconnect = require('./config/dbconnect');
 const Authentication = require('./middlewares/Authentication');
@@ -9,6 +10,7 @@ require('dotenv').config();
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/', function(request,result){
     console.log("hello");
