@@ -11,14 +11,15 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(cors());
+dbconnect();
 
 app.get('/', function(request,result){
     console.log("hello");
    result.render('Home');
 
 })
-dbconnect();
-app.use('/api/v1/user',Authentication.VerifyToken, userRouter);
+
+app.use('/api/v1/user',Authentication.verifyToken, userRouter);
 app.use('/api/v1/auth', authRouter )
 
 app.listen(process.env.PORT, function(){
