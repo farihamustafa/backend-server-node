@@ -23,4 +23,4 @@ try {
     
 }
 }
-generateProduct(5)
+generateProduct(3)
