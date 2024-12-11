@@ -1,9 +1,10 @@
-const orderController =require('../controllers/orderController');
-const express =require('express');
+const orderController = require('../controllers/orderController');
+const express = require('express');
 
-const orderRouter =express.Router();
+const orderRouter = express.Router();
 
-orderRouter.get('',orderController.list);//list
+orderRouter.get('',orderController.list); 
 orderRouter.post('',orderController.create);
 
-module.exports= orderRouter;
+module.exports=orderRouter;
+
