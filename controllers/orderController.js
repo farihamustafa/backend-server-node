@@ -9,6 +9,13 @@ class orderController{
     static create(req,res){
         orderService.create(req,res);
     }
+    static filter(req,res){
+        orderService.listByUserId(req,res);
+    }
+    static track(req,res){
+        orderService.fetchById(req,res);
+    }
+
 
 
 }
