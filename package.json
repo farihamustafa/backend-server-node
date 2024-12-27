@@ -1,12 +1,12 @@
 {
   "name": "backend-server-node",
   "version": "1.0.0",
-  "description": "beckend node project",
+  "description": "Aptech nn2",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "nodemon index.js"
   },
-  "author": "Miss fariha",
+  "author": "SirHuzaifa",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^9.2.0",
@@ -15,8 +15,12 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "express-ejs-layouts": "^2.5.1",
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }

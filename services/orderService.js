@@ -6,32 +6,41 @@ class orderService{
     async list(req,res){
         try{
             const order = await Order.find({}).populate('items');
-            return  res.status(200).json({message:"success",data:order})
+            return res.status(200).json({message:"success",data:order})
         }
         catch(err){
-            return  res.status(400).json({message:err})
+            return res.status(400).json({message:err})
         }
     }
+
     async fetchById(req,res){
         try{
             const id = req.params.id;
             const order = await Order.findById(id).populate('items');
-            return  res.status(200).json({message:"success",data:order})
+            return res.status(200).json({message:"success",data:order})
         }
         catch(err){
-          return  res.status(400).json({message:err})
-        }
-    }
-    async listByUserId(req,res){
-        try{
-            const order = await Order.find({user:req.user.id}).populate('items');
-            return  res.status(200).json({message:"success",data:order})
-        }
-        catch(err){
-            return  res.status(400).json({message:err})
+            return res.status(400).json({message:err})
         }
     }
 
+    async listByUserId(req,res){
+        try{
+            const order = await Order.find({ user: req.user.id })
+            .populate({
+                path: 'items',
+                populate: {
+                    path: 'product',
+                    model: 'products'
+                }
+            });
+        
+            return res.status(200).json({message:"success",data:order})
+        }
+        catch(err){
+            return res.status(400).json({message:err})
+        }
+    }
 
     async create(req,res){
         try{
@@ -47,10 +56,10 @@ class orderService{
               
             await Item.insertMany(items);
 
-            return  res.status(200).json({message:"Order created successfully"})
+           return res.status(200).json({message:"Order created successfully"})
         }
         catch(err){
-            return res.status(400).json({message:err})
+            return  res.status(400).json({message:err})
         }
     }
 }

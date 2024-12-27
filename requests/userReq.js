@@ -1,6 +1,5 @@
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User'); // Adjust the path as necessary
-
 class userReq {
   static validationRules(update=false) {
     const rules = [
@@ -25,9 +24,7 @@ class userReq {
           );
              }
     return rules;
-
   }
-
   static validate(req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -36,5 +33,4 @@ class userReq {
     next();
   }
 }
-
 module.exports = userReq;
