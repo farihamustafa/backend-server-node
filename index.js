@@ -13,6 +13,7 @@ const orderRouter = require('./routes/orderRoute');
 
 const expressLayout = require('express-ejs-layouts');
 const Product = require('./models/Product');
+const User = require('./models/User');
 
 app.use(expressLayout);
 app.set('view engine','ejs')
@@ -29,6 +30,47 @@ dbconnect();
 app.get('/',function(request,result){
     result.render('home');
 })
+
+
+app.get('/user', async function (request, result) {
+    const users = await User.find({ deleted_at: null });
+    return result.render('users', { data: users });
+  });
+
+  ///CRUD OPERATIONS FOR USER
+//   app.delete('/user/:id',async function(request,result) {
+//     const id = request.params.id;
+//     const users = await User.findById(id)
+//     users.deleted_at = Date.now();
+//     users.save();
+//     return result.redirect('/user')
+// })
+app.delete('/user/:id', async function (request, result) {
+    try {
+      const id = request.params.id;
+      const users = await User.findById(id);
+  
+      // Handle non-existent users
+      if (!users) {
+        return result.status(404).send("User not found");
+      }
+  
+      // Soft delete the user
+      users.deleted_at = Date.now();
+      await users.save();
+  
+      // Redirect after successful save
+      return result.redirect('/user');
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      return result.status(500).send("Internal Server Error");
+    }
+  });
+  
+
+
+  
+ //// CRUD OPERATION OF PRODUCTS
 app.get('/product',async function(request,result) {
     const products = await Product.find({deleted_at:null})
     return result.render('products',{data:products});
