@@ -5,7 +5,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Product Record</h4>
-           
+           <button onclick="window.location.href='/product/create'" class="btn btn-primary">Add Product</button>
             </p>
             <div class="table-responsive pt-3">
               <table class="table table-bordered">
@@ -34,6 +34,7 @@
                         <img src="<%= item.url %>" height="100" width="100" />    
                     </td>
                     <td> 
+                      <a href="/product/<%= item._id %>/edit" class="btn btn-secondary">Edit</a>
                         <button onclick="deleteProduct('<%= item._id %>')" class="btn btn-danger">Delete</button>
                     </td>
                   </tr>

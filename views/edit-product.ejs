@@ -1,0 +1,51 @@
+<div class="content-wrapper">
+    <div class="row">
+     
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Edit Product Record</h4>
+        
+            <form class="forms-sample" id="update-product" method="post" action="/product/update?_method=PUT">
+                
+                <div class="form-group">
+                  <label >Name</label>
+                  <input type="text" class="form-control" name="name" value="<%= data.name %>" placeholder="Name" required>
+                  <input type="text" class="form-control" name="id" value="<%= data._id %>" hidden required>
+                </div>
+             
+                <div class="form-group">
+                    <label >Description</label>
+                    <input type="text" class="form-control" name="description" value="<%= data.description %>" placeholder="Description" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label >Price</label>
+                    <input type="number" step="any" class="form-control" name="price" value="<%= data.price %>" placeholder="Price" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label >Image Url</label>
+                    <input type="url" class="form-control" name="url" placeholder="Image Url" value="<%= data.url %>" required>
+                  </div>
+
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                <button type="button" onclick="window.location.href='/product'" class="btn btn-light">Cancel</button>
+              </form>
+           
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+

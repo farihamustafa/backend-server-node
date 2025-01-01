@@ -6,17 +6,21 @@ const dbconnect = require('./config/dbconnect');
 const Authentication = require('./middlewares/Authentication');
 const authRouter = require('./routes/authRoute');
 const cors = require('cors');
+//1
+const methodOverride = require('method-override');
 const productRouter = require('./routes/productRoute');
 const orderRouter = require('./routes/orderRoute');
-//1
+
 const expressLayout = require('express-ejs-layouts');
 const Product = require('./models/Product');
-//2
+
 app.use(expressLayout);
 app.set('view engine','ejs')
 app.use(express.static('public'));
 require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: false }))
+//2
+app.use(methodOverride('_method'))
 app.use(bodyParser.json());
 app.use(cors());
 
@@ -35,6 +39,29 @@ app.delete('/product/:id',async function(request,result) {
     const products = await Product.findById(id)
     products.deleted_at = Date.now();
     products.save();
+    return result.redirect('/product')
+})
+
+app.get('/product/create',async function(request,result) {
+    return result.render('create-product',{layout: 'layout'});
+})
+
+app.get('/product/:id/edit',async function(request,result) {
+    const id = request.params.id;
+    const product = await Product.findById(id)
+    return result.render('edit-product',{layout: 'layout',data:product});
+})
+
+app.post('/product/store',async function(request,result) {
+    const data = (({name,description,price,url})=>({name,description,price,url}))(request.body);
+    await Product.insertMany([data])
+    return result.redirect('/product')
+})
+
+app.put('/product/update',async function(request,result) {
+    const id = request.body.id;
+    const data = (({name,description,price,url})=>({name,description,price,url}))(request.body);
+    await Product.findByIdAndUpdate(id,data);
     return result.redirect('/product')
 })
 
