@@ -4,6 +4,7 @@
         <div class="card">
           <div class="card-body">
             <h4 class="card-title">Users Record</h4>
+            <button onclick="window.location.href='/user/create'" class="btn btn-primary">Add User</button>
             <div class="table-responsive pt-3">
               <table class="table table-bordered">
                 <thead>
@@ -34,23 +35,4 @@
       </div>
     </div>
   </div>
-  
-  <script>
-    function deleteUser(id) {
-      if (confirm("Are you sure you want to delete this user?")) {
-        fetch('/user/' + id, { method: 'DELETE' })
-          .then(response => {
-            if (response.ok) {
-              alert("User deleted successfully.");
-              location.reload();
-            } else {
-              alert("Failed to delete the user.");
-            }
-          })
-          .catch(error => {
-            alert("An error occurred: " + error.message);
-          });
-      }
-    }
-  </script>
-  
+

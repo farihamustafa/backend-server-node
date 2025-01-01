@@ -38,37 +38,29 @@ app.get('/user', async function (request, result) {
   });
 
   ///CRUD OPERATIONS FOR USER
-//   app.delete('/user/:id',async function(request,result) {
-//     const id = request.params.id;
-//     const users = await User.findById(id)
-//     users.deleted_at = Date.now();
-//     users.save();
-//     return result.redirect('/user')
-// })
-app.delete('/user/:id', async function (request, result) {
-    try {
-      const id = request.params.id;
-      const users = await User.findById(id);
-  
-      // Handle non-existent users
-      if (!users) {
-        return result.status(404).send("User not found");
-      }
-  
-      // Soft delete the user
-      users.deleted_at = Date.now();
-      await users.save();
-  
-      // Redirect after successful save
-      return result.redirect('/user');
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      return result.status(500).send("Internal Server Error");
-    }
-  });
-  
+  app.delete('/user/:id',async function(request,result) {
+    const id = request.params.id;
+    const users = await User.findById(id)
+    users.deleted_at = Date.now();
+    users.save();
+    return result.redirect('/user')
+})
+app.get('/user/create',async function(request,result) {
+  return result.render('create-user',{layout: 'layout'});
+})
+
+app.post('/user/store',async function(request,result) {
+  const data = (({name,email,password})=>({name,email,password}))(request.body);
+  await User.insertMany([data])
+  return result.redirect('/user')
+})
 
 
+app.get('/user/:id/edit',async function(request,result) {
+  const id = request.params.id;
+  const user = await User.findById(id)
+  return result.render('edit-user',{layout: 'layout',data:user});
+})
   
  //// CRUD OPERATION OF PRODUCTS
 app.get('/product',async function(request,result) {
