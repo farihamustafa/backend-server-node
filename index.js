@@ -61,6 +61,13 @@ app.get('/user/:id/edit',async function(request,result) {
   const user = await User.findById(id)
   return result.render('edit-user',{layout: 'layout',data:user});
 })
+
+app.put('/user/update',async function(request,result) {
+    const id = request.body.id;
+    const data = (({name,email,password})=>({name,email,password}))(request.body);
+    await User.findByIdAndUpdate(id,data);
+    return result.redirect('/user')
+})
   
  //// CRUD OPERATION OF PRODUCTS
 app.get('/product',async function(request,result) {

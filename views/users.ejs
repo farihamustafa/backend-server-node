@@ -12,6 +12,7 @@
                     <th> # </th>
                     <th> Name </th>
                     <th> Email </th>
+                    <th> Password </th>
                     <th> Actions </th>
                   </tr>
                 </thead>
@@ -21,6 +22,8 @@
                     <td><%= index + 1 %></td>
                     <td><%= item.name %></td>
                     <td><%= item.email %></td>
+                    <td><%= item.password %></td>
+                
                     <td>
                       <a href="/user/<%= item._id %>/edit" class="btn btn-secondary">Edit</a>
                       <button onclick="deleteUser('<%= item._id %>')" class="btn btn-danger">Delete</button>
@@ -36,3 +39,10 @@
     </div>
   </div>
 
+  <script>
+    function deleteUser(id){
+        fetch('/user/'+id, { method: 'DELETE' })
+    .then(() => {alert("user deleted");location.reload();});
+
+    }
+  </script>
